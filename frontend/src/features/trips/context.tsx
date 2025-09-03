@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-import type { TripIdea } from "./types";
+import type { TripIdea, BackendTripIdea } from "./types";
 
 type TripContextValue = {
-  tripIdeas: TripIdea[];
-  setTripIdeas: (ideas: TripIdea[]) => void;
+  tripIdeas: (TripIdea | BackendTripIdea)[];
+  setTripIdeas: (ideas: (TripIdea | BackendTripIdea)[]) => void;
   isLoading: boolean;
   setIsLoading: (v: boolean) => void;
 };
@@ -12,7 +12,7 @@ type TripContextValue = {
 const TripContext = createContext<TripContextValue | null>(null);
 
 export function TripProvider({ children }: { children: ReactNode }) {
-  const [tripIdeas, setTripIdeas] = useState<TripIdea[]>([]);
+  const [tripIdeas, setTripIdeas] = useState<(TripIdea | BackendTripIdea)[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   return (

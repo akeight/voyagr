@@ -40,7 +40,7 @@ export default function TripIdeasPage() {
                   {idea.itinerary.map((item) => (
                     <li key={`${idea.id}-${item.day}`} className="flex items-start">
                       <div className="flex-shrink-0 mr-3 pt-1">
-                        <ItineraryIcon icon={item.icon} />
+                        <ItineraryIcon icon={('icon' in item) ? item.icon : item.icon_name} />
                       </div>
                       <p className="text-gray-300">
                         <span className="font-bold text-gray-100">Day {item.day}:</span> {item.activity}

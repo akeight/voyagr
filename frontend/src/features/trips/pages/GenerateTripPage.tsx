@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTrips } from "../context";
-import { mockTripIdeas } from "../data/mockData";
+import { generateTripIdeas } from "../api";
 
 export default function GenerateTripPage() {
   const [budget, setBudget] = useState<number>(1000);
@@ -14,14 +14,16 @@ export default function GenerateTripPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Example future API call:
-    // const ideas = await generateTripIdeas({ budget, interests });
-
-    setTimeout(() => {
-      setTripIdeas(mockTripIdeas);
+    try {
+      const ideas = await generateTripIdeas({ budget, interests });
+      setTripIdeas(ideas);
       setIsLoading(false);
       navigate("/ideas");
-    }, 1500);
+    } catch (error) {
+      console.error("Failed to generate trip ideas:", error);
+      setIsLoading(false);
+      //  add error handling to show error message to user
+    }
   };
 
   return (
