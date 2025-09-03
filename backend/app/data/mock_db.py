@@ -1,34 +1,3 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List, Dict, Any
-from app.api.v1.routers.itinerary import router as itinerary_router
-
-app = FastAPI()
-
-# Include the itinerary router
-app.include_router(itinerary_router, prefix="/api/v1/itinerary", tags=["itinerary"])
-
-# CORS middleware to allow requests from the React frontend
-origins = [
-    "http://localhost:3000",
-    "http://localhost:5173", # Default Vite dev server port
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-class TripRequest(BaseModel):
-    budget: int
-    interests: str
-
-# This is mock data. In a real application, you would use an LLM
-# or a more sophisticated trip generation logic.
 mock_db = {
     "hiking": {
         "title": "Appalachian Adventure",
@@ -71,29 +40,3 @@ mock_db = {
         ]
     }
 }
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Voyagr Backend is Running!"}
-
-@app.post("/generate-trip-ideas")
-def generate_trip_ideas(trip_request: TripRequest):
-    """
-    This endpoint simulates generating trip ideas based on user input.
-    In a real application, this would involve a call to a generative AI model.
-    """
-    interests = trip_request.interests.lower()
-    
-    # Simple logic to return a mock trip based on the first keyword found
-    idea = mock_db.get("default")
-    if "hiking" in interests or "nature" in interests:
-        idea = mock_db.get("hiking")
-    elif "museums" in interests or "history" in interests:
-        idea = mock_db.get("museums")
-
-    # Adjust budget in response to match request
-    idea['budget'] = trip_request.budget
-
-    # We return a list to match the frontend's expectation
-    return {"ideas": [idea]}
