@@ -34,7 +34,7 @@ This is the React SPA for Voyagr, an AI-powered travel itinerary app.
 
 - Node 18+ and **npm**
 - A running backend at `http://localhost:8000` (or set `VITE_API_URL`)
-- *(Only when you enable auth later)* A Clerk application (publishable key)
+- *(Only when auth enabled later)* A Clerk application (publishable key)
 
 ---
 
