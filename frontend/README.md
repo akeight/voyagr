@@ -1,69 +1,53 @@
-# React + TypeScript + Vite
+# Voyagr — Frontend (Vite + React + TypeScript + Tailwind)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the React SPA for Voyagr, an AI-powered travel itinerary app.
 
-Currently, two official plugins are available:
+> **Status:** Core UI is implemented. API calls target your FastAPI backend.  
+> **Planned (disabled by default):** Authentication via **Clerk** and itinerary generation via **OpenAI** (proxied through backend).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Vite + React + TypeScript** for fast DX
+- **TailwindCSS** utility styling (+ custom fade-in animations)
+- **React Router** pages: `/`, `/generate`, `/ideas`
+- **State via context** for trip ideas + loading overlay
+- **Axios** API client
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Planned Future Features:**
+- **Clerk** authentication and route gating
+- **OpenAI LLM** itinerary generation
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧰 Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- React 18, TypeScript, Vite
+- TailwindCSS, PostCSS, Autoprefixer
+- React Router, TanStack Query
+- Axios for HTTP
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ✅ Prerequisites
+
+- Node 18+ and **npm**
+- A running backend at `http://localhost:8000` (or set `VITE_API_URL`)
+- *(Only when you enable auth later)* A Clerk application (publishable key)
+
+---
+
+## 📜 Scripts & How to Use Them
+
+| Command | What it does | When to use |
+|---|---|---|
+| `npm install` | Install dependencies | Initializing project
+| `npm run dev` | Starts the Vite dev server at `http://localhost:5173` | Day-to-day development with hot reloading |
+| `npm build` | Creates a production build in `dist/` | Before deploying or testing production assets |
+| `npm preview` | Serves the `dist/` build locally | Sanity-check the production build locally |
+| `npm lint` | Runs ESLint on the codebase | Keep code quality consistent; CI checks |
+| `npm tsc` | Type-checks the project (no emit) | Catch TypeScript errors without building |
+
+
+
