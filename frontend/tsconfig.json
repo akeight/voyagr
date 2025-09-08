@@ -4,5 +4,7 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
-  "compilerOptions": {}
+  "compilerOptions": {
+    "types": ["node-modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts"]
+    }
 }

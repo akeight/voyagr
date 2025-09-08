@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Plane } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import '@awesome.me/webawesome/dist/components/button/button.js';
 
 export default function Header() {
   return (
