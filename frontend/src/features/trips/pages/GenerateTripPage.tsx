@@ -3,7 +3,22 @@ import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTrips } from "../context";
 import { generateTripIdeas } from "../api";
+import { MapSection, type Activity as MapActivity } from "../components/ItineraryMap";
 
+function flattenActivities(itin: any): MapActivity[] {
+  if (!itin?.days) return [];
+  return itin.days.flatMap((d: any) =>
+    (d.activities ?? []).map((a: any) => ({
+      title: a.title,
+      address: a.address,
+      lat: a.lat,
+      lon: a.lon,
+      date: d.date
+    }))
+  );
+}
+ const activities = flattenActivities(itinerary);
+ 
 export default function GenerateTripPage() {
   const [budget, setBudget] = useState<number>(1000);
   const [interests, setInterests] = useState<string>("");
@@ -25,6 +40,8 @@ export default function GenerateTripPage() {
       //  add error handling to show error message to user
     }
   };
+
+ 
 
   return (
     <div className="min-h-screen w-full bg-gray-900 flex items-center justify-center p-4">

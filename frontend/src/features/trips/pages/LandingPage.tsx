@@ -65,7 +65,7 @@ export default function LandingPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <TestimonialCard
-              quote="This AI planner is a game-changer! I planned a week-long trip to Italy in minutes."
+              quote="Voyagr is a game-changer! I planned a week-long trip to Italy in minutes."
               author="Alex Johnson"
               role="Solo Traveler"
             />
