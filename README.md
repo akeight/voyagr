@@ -23,13 +23,13 @@ A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) l
 +---------------------+        HTTPS        +---------------------+
 |  React + Vite (TS)  |  <--------------->  |     FastAPI (Py)    |
 |  /frontend          |                     |  /backend           |
-|  Clerk (frontend)   |      REST/JSON      |  OpenAI client      |
+|  Clerk (frontend)   |      REST/JSON      |  RAG with Langchain |
 +----------+----------+                     |  DB (Postgres)
            |                                |  Auth (Clerk JWKS)  |
            |  .env (VITE_*)                 +----------+----------+
            |                                            |
            |                                 External providers
-           |                              (OpenAI, Maps, etc.)
+           |                              (Langchain, OpenAI model, MapBox)
 ```
 
 ---
@@ -43,7 +43,7 @@ A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) l
 
 ## Quickstart
 
-### Option A: Local dev (recommended)
+### Local dev (will deploy when finished)
 
 **1) Clone & set envs**
 
