@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from app.data.mock_db import mock_db
 from pydantic import BaseModel
 from app.services.langchain_chain import build_itinerary_chain
-from app.schema.itinerary import ItineraryResponse
+from app.schema.itinerary import ItineraryResponse, BackendTripIdea
 
 router = APIRouter()
 
@@ -18,7 +18,7 @@ class ItineraryRequest(BaseModel):
 @router.post("/generate", response_model=ItineraryResponse)
 def generate_itinerary_endpoint(payload: ItineraryRequest):
     chain = build_itinerary_chain()
-    md = chain.invoke({
+    result = chain.invoke({
         "destination": payload.destination,
         "start_date": payload.start_date,
         "end_date": payload.end_date,
@@ -27,7 +27,20 @@ def generate_itinerary_endpoint(payload: ItineraryRequest):
         "interests": payload.interests or "",
         "notes": payload.notes or ""
     })
-    return ItineraryResponse(itinerary_markdown=md)   
+    
+    # Add id and ensure image is a valid URL
+    trip_idea = BackendTripIdea(
+        id=1,
+        title=result.get("title", "Generated Trip"),
+        destination=result.get("destination", payload.destination),
+        duration=result.get("duration", "N/A"),
+        budget=result.get("budget", payload.budget or 0),
+        theme=result.get("theme", "Adventure"),
+        image=result.get("image", "https://placehold.co/600x400/22c55e/ffffff?text=Trip"),
+        itinerary=result.get("itinerary", [])
+    )
+    
+    return ItineraryResponse(ideas=[trip_idea])   
 
 # @router.post("/generate")  # or GET if you prefer
 # def generate_itinerary(request: ItineraryRequest):

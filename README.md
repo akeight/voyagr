@@ -2,7 +2,7 @@
 
 A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) lets users generate and manage trips; the backend (FastAPI) orchestrates AI calls (OpenAI), persists data, and exposes REST endpoints. Optional user auth via Clerk to store trips.
 
-**Status**: active development. This README covers repo‑wide setup, conventions, and workflows. See `/frontend` and `/backend` READMEs for service‑specific details.
+**Status**: active development. This README covers repo‑wide setup, conventions, and workflows. See `/client` and `/server` READMEs for service‑specific details.
 
 ---
 
@@ -22,7 +22,7 @@ A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) l
 ```
 +---------------------+        HTTPS        +---------------------+
 |  React + Vite (TS)  |  <--------------->  |     FastAPI (Py)    |
-|  /frontend          |                     |  /backend           |
+|  /client            |                     |  /server            |
 |  Clerk (frontend)   |      REST/JSON      |  OpenAI client      |
 +----------+----------+                     |  DB (Postgres)
            |                                |  Auth (Clerk JWKS)  |
@@ -50,16 +50,16 @@ A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) l
 ```bash
 git clone https://github.com/akeight/voyagr.git voyagr
 cd voyagr
-cp frontend/.env.local.example frontend/.env.local   # create & fill
-cp backend/.env.example backend/.env                 # create & fill
+cp clent/.env.local.example client/.env.local   # create & fill
+cp server/.env.example server/.env                 # create & fill
 ```
 
 **2) Backend** (FastAPI)
 
 ```bash
-cd backend
+cd client
 # Create env
-conda create -n voyagr-py311 python=3.11 -y && conda activate voyagr-py311
+conda create -n voyagr-py311 python=3.11 -y && conda activate travel-agent
 
 # Install deps
 pip install -r requirements.txt  # or: pip install -e .
@@ -74,14 +74,14 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 **3) Frontend** (React + Vite)
 
 ```bash
-cd ../frontend
+cd ../client
 npm install
 npm run dev
 ```
 
 * Web dev URL: `http://localhost:5173`
 
-> Ensure `VITE_API_URL` in `frontend/.env.local` matches the backend URL.
+> Ensure `VITE_API_URL` in `client/.env.local` matches the backend URL.
 
 ---
 
@@ -91,36 +91,36 @@ npm run dev
 
 ```bash
 # Terminal 1
-cd backend && uvicorn app.main:app --reload
+cd server && uvicorn app.main:app --reload
 # Terminal 2
-cd frontend && npm run dev
+cd client && npm run dev
 ```
 
 **Type‑check & lint**
 
 ```bash
 # Frontend
-cd frontend && npm tsc && npm lint
+cd client && npm tsc && npm lint
 # Backend
-cd backend && ruff check . && mypy app
+cd server && ruff check . && mypy app
 ```
 
 **Run tests**
 
 ```bash
 # Frontend
-cd frontend && npm test
+cd client && npm test
 # Backend
-cd backend && pytest -q
+cd server && pytest -q
 ```
 
 **Format**
 
 ```bash
 # Frontend
-cd frontend && npm format
+cd client && npm format
 # Backend
-cd backend && ruff format . && black .
+cd server && ruff format . && black .
 ```
 
 ---

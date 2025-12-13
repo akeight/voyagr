@@ -6,10 +6,7 @@ from typing import List, Dict, Any
 
 app = FastAPI()
 
-# Include the itinerary router
-app.include_router(itinerary_router, prefix="/api/v1/itinerary", tags=["itinerary"])
-
-# CORS middleware to allow requests from the React frontend
+# CORS middleware MUST be added before routes
 origins = [
     "http://localhost:3000",
     "http://localhost:5173",
@@ -22,6 +19,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include the itinerary router AFTER CORS middleware
+app.include_router(itinerary_router, prefix="/api/v1/itinerary", tags=["itinerary"])
 
 class TripRequest(BaseModel):
     budget: int

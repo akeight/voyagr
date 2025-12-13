@@ -31,5 +31,20 @@ class Itinerary(BaseModel):
     notes: Optional[str] = None
     days: List[DayPlan]
 
+class BackendItineraryItem(BaseModel):
+    day: int
+    activity: str
+    icon_name: str
+
+class BackendTripIdea(BaseModel):
+    id: int | None = None
+    title: str
+    destination: str
+    duration: str
+    budget: int
+    theme: str
+    image: str
+    itinerary: List[BackendItineraryItem]
+
 class ItineraryResponse(BaseModel):
-    itinerary_markdown: str
+    ideas: List[BackendTripIdea]

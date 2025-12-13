@@ -6,13 +6,11 @@ from app.api.v1.routers.itinerary import router as itinerary_router
 
 app = FastAPI()
 
-# Include the itinerary router
-app.include_router(itinerary_router, prefix="/api/v1/itinerary", tags=["itinerary"])
-
-# CORS middleware to allow requests from the React frontend
+# CORS middleware MUST be added before routes
 origins = [
     "http://localhost:3000",
-    "http://localhost:5173", # Default Vite dev server port
+    "http://localhost:5173",
+    "http://localhost:8000"
 ]
 
 app.add_middleware(
@@ -22,6 +20,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include the itinerary router AFTER CORS middleware
+app.include_router(itinerary_router, prefix="/api/v1/itinerary", tags=["itinerary"])
 
 class TripRequest(BaseModel):
     budget: int
