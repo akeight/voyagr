@@ -1,8 +1,16 @@
 # Voyagr — AI Travel Agent 🗺️
 
-A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) lets users generate and manage trips; the backend (FastAPI) orchestrates AI calls (OpenAI), persists data, and exposes REST endpoints. Optional user auth via Clerk to store trips.
+Voyagr is a React + Vite frontend and FastAPI backend that implements a RAG pipeline (LangChain + OpenAI). Content is embedded with OpenAI, stored in Chroma, retrieved per-query, and composed into itinerary drafts with sources attached. The API exposes generation, retrieval, and trip CRUD endpoints; optional Clerk auth for saved trips.
 
-**Status**: active development. This README covers repo‑wide setup, conventions, and workflows. See `/client` and `/server` READMEs for service‑specific details.
+---
+
+### ✨ Inspiration
+
+Before starting my software engineering degree, I dove into a LangChain + OpenAI bootcamp. One of the projects we built in Jupyter Notebooks was an AI travel agent. I wanted to take that prototype out of the notebook and turn it into a real, interactive web app.
+
+
+### 👩🏻‍💻 Status 
+Active development. This README covers repo‑wide setup, conventions, and workflows. See `/frontend` and `/backend` READMEs for service‑specific details.
 
 ---
 
@@ -22,14 +30,14 @@ A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) l
 ```
 +---------------------+        HTTPS        +---------------------+
 |  React + Vite (TS)  |  <--------------->  |     FastAPI (Py)    |
-|  /client            |                     |  /server            |
-|  Clerk (frontend)   |      REST/JSON      |  OpenAI client      |
+|  /frontend          |                     |  /backend           |
+|  Clerk (frontend)   |      REST/JSON      |  RAG with Langchain |
 +----------+----------+                     |  DB (Postgres)
            |                                |  Auth (Clerk JWKS)  |
            |  .env (VITE_*)                 +----------+----------+
            |                                            |
            |                                 External providers
-           |                              (OpenAI, Maps, etc.)
+           |                              (Langchain, OpenAI model, MapBox)
 ```
 
 ---
@@ -43,7 +51,7 @@ A full‑stack, AI‑powered travel itinerary app. The frontend (React + Vite) l
 
 ## Quickstart
 
-### Option A: Local dev (recommended)
+### Local dev (will deploy when finished)
 
 **1) Clone & set envs**
 

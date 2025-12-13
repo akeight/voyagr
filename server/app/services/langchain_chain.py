@@ -12,20 +12,37 @@ SYSTEM = (
 )
 
 JSON_SCHEMA = """{
-  "title": "string - catchy title for the trip",
-  "destination": "string - full destination name",
-  "duration": "string - e.g., '3 Days', '5 Days'",
-  "budget": number - total budget estimate,
-  "theme": "string - e.g., 'Nature & Hiking', 'History & Culture', 'City Exploration'",
-  "image": "string - placeholder image URL or description",
+  "title": "Adventure in Paris",
+  "destination": "Paris, France",
+  "duration": "5 Days",
+  "budget": 1500,
+  "theme": "History & Culture",
+  "image": "https://placehold.co/600x400/22c55e/ffffff?text=Trip",
   "itinerary": [
     {
-      "day": number - day number (1, 2, 3, etc.),
-      "activity": "string - description of the day's activities",
-      "icon_name": "string - one of: Mountain, Landmark, Plane, Pizza, Beach, Museum, etc."
+      "day": 1,
+      "activity": "Arrive and explore the Eiffel Tower and nearby attractions",
+      "icon_name": "Landmark"
+    },
+    {
+      "day": 2,
+      "activity": "Visit the Louvre Museum and enjoy local cuisine",
+      "icon_name": "Museum"
     }
   ]
-}"""
+}
+
+Note: 
+- "title" should be a catchy string describing the trip
+- "destination" should be the full destination name
+- "duration" should be a string like "3 Days" or "5 Days"
+- "budget" should be a number (total budget estimate)
+- "theme" should be a string like "Nature & Hiking", "History & Culture", or "City Exploration"
+- "image" should be a placeholder image URL
+- "itinerary" is an array of objects, each with:
+  - "day": a number (1, 2, 3, etc.)
+  - "activity": a string describing the day's activities
+  - "icon_name": a string from: Mountain, Landmark, Plane, Pizza, Beach, Museum, etc."""
 
 PROMPT = ChatPromptTemplate.from_messages([
     ("system", SYSTEM),
