@@ -30,7 +30,7 @@ Active development. This README covers repo‑wide setup, conventions, and workf
 ```
 +---------------------+        HTTPS        +---------------------+
 |  React + Vite (TS)  |  <--------------->  |     FastAPI (Py)    |
-|  /frontend          |                     |  /backend           |
+|  /client            |                     |  /server            |
 |  Clerk (frontend)   |      REST/JSON      |  RAG with Langchain |
 +----------+----------+                     |  DB (Postgres)
            |                                |  Auth (Clerk JWKS)  |
